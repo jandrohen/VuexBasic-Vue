@@ -4,8 +4,8 @@
   <h2> Computed: {{ countComputed }}</h2>
   <hr>
   <button @click="increment">+1</button>
-  <button @click="incrementBy5">+5</button>
-  <button @click="incrementRandomInt">Random</button>
+  <button @click="incrementBy">+5</button>
+  <button @click="randomInt">Random</button>
   <hr>
   <h1>mapState</h1>
   <h2> mapState: {{ count }}</h2>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState,mapActions } from 'vuex';
 
 export default {
 
@@ -27,6 +27,7 @@ export default {
   // ...mapState({
   //   count: state => state.count,
   //   lastMutation: state => state.lastMutation,
+  //   lastMutation: 'lastMutation'
   // }),
   },
 
@@ -34,12 +35,13 @@ export default {
     increment() {
       this.$store.commit('increment');
     },
-    incrementBy5() {
+    incrementBy() {
       this.$store.commit('incrementBy', 5);
+      // this.randomInt()
     },
-    incrementRandomInt() {
-      this.$store.dispatch('incrementRandomInt');
-    },
+    ...mapActions({
+      randomInt: 'incrementRandomInt',
+    })
   }
 
 }
